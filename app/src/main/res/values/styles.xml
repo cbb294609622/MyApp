@@ -4,5 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
-
+    <style name="mypopwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/show_popuwindow</item>        <!-- 指定显示的动画xml  -->
+        <item name="android:windowExitAnimation">@anim/hide_popuwindow</item>       <!-- 指定消失的动画xml  -->
+    </style>
 </resources>
