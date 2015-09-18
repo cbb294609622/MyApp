@@ -5,3 +5,5 @@
 #增加了新功能
     左侧侧拉菜单
     右上角popuwindow
+#小BUG
+    解决上次提交DragLayout类有编码冲突问题
