@@ -9,7 +9,7 @@ public class PictureFragment extends BaseFragment {
 
 	@Override
 	public View initView() {
-		TextView tv = new TextView(context);
+		TextView tv = new TextView(mContext);
 		tv.setText("图片浏览");
 		return tv;
 	}

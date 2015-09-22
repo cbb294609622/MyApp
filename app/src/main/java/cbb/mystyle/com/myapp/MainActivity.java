@@ -1,6 +1,7 @@
 package cbb.mystyle.com.myapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -34,10 +35,15 @@ import cbb.mystyle.com.myapp.fragment.LightRouteFragment;
 import cbb.mystyle.com.myapp.fragment.PersonalFragment;
 import cbb.mystyle.com.myapp.fragment.PictureFragment;
 import cbb.mystyle.com.myapp.fragment.SettingFragment;
+import cbb.mystyle.com.myapp.utils.MyToastUitl;
 import cbb.mystyle.com.myapp.view.DragLayout;
 import cbb.mystyle.com.myapp.view.MyLinearLayout;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
+    /**
+     * 回调的一个标识
+     */
+    private final static int SCANNIN_GREQUEST_CODE = 1;
     /**
      * 左侧侧拉ListView
      */
@@ -222,7 +228,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case 3:
                 if (lightRouteFragment == null){
                     //为空 创建 并添加 然后显示
-//                    lightRouteFragment = new LightRouteFragment();
+                    lightRouteFragment = new LightRouteFragment();
                     transaction.add(R.id.fl_main, lightRouteFragment);
                 }else{
                     // 如果homeFragment不为空，则直接显示
@@ -252,7 +258,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case 6:
                 if (settingFragment == null){
                     //为空 创建 并添加 然后显示
-                    settingFragment = new SettingFragment();
+//                    settingFragment = new SettingFragment();
                     transaction.add(R.id.fl_main, settingFragment);
                 }else{
                     // 如果homeFragment不为空，则直接显示
@@ -367,54 +373,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 return false;
             }
         });
-
-        final TextView tv_call = (TextView) contentView
-                .findViewById(R.id.tv_call);
-        final TextView tv_phone = (TextView) contentView
-                .findViewById(R.id.tv_phone);
-        final TextView tv_group = (TextView) contentView
-                .findViewById(R.id.tv_group);
         final TextView tv_qrcode = (TextView) contentView
                 .findViewById(R.id.tv_qrcode);
-        final TextView tv_computer = (TextView) contentView
-                .findViewById(R.id.tv_computer);
 
-        tv_call.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                iv_function.setSelected(false);
-                popupWindow.dismiss();
-                popupWindow = null;
-                Toast.makeText(mContext, tv_call.getText().toString() + "", Toast.LENGTH_SHORT)
-                        .show();
 
-            }
-        });
-        tv_phone.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                iv_function.setSelected(false);
-                popupWindow.dismiss();
-                popupWindow = null;
-                Toast.makeText(mContext, tv_phone.getText().toString() + "", Toast.LENGTH_SHORT)
-                        .show();
-
-            }
-        });
-        tv_group.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                iv_function.setSelected(false);
-                popupWindow.dismiss();
-                popupWindow = null;
-                Toast.makeText(mContext, tv_group.getText().toString() + "", Toast.LENGTH_SHORT)
-                        .show();
-
-            }
-        });
         tv_qrcode.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -422,27 +385,36 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 iv_function.setSelected(false);
                 popupWindow.dismiss();
                 popupWindow = null;
-                Toast.makeText(mContext, tv_qrcode.getText().toString() + "", Toast.LENGTH_SHORT)
-                        .show();
+                initQrCode();
 
             }
         });
-        tv_computer.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                iv_function.setSelected(false);
-                popupWindow.dismiss();
-                popupWindow = null;
-                Toast.makeText(mContext, tv_computer.getText().toString() + "",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
         popupWindow.showAtLocation(v, Gravity.RIGHT | Gravity.TOP, 0, rl_actionbar.getHeight());
         popupWindow.showAsDropDown(v);
     }
+    protected void initQrCode() {
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, MipcaCaptureActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SCANNIN_GREQUEST_CODE:
+                if(resultCode == RESULT_OK){
+                    Bundle bundle = data.getExtras();
+                    //显示扫描到的内容
+                    MyToastUitl.showToast(mContext,bundle.getString("result"), MyToastUitl.SHORT_TOAST);
+                }
+                break;
+        }
+    }
+
+
 
     @Override
     public void onClick(View v) {

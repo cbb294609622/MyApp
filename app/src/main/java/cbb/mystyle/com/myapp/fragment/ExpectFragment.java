@@ -9,7 +9,7 @@ public class ExpectFragment extends BaseFragment {
 
 	@Override
 	public View initView() {
-		TextView tv = new TextView(context);
+		TextView tv = new TextView(mContext);
 		tv.setText("期待加入");
 		return tv;
 	}

@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public abstract class BaseFragment extends Fragment {
-	public static Activity context;
+	public static Activity mContext;
 	public View view;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//上下文环境
-		context = getActivity();
+		mContext = getActivity();
 	}
 	
 	@Override

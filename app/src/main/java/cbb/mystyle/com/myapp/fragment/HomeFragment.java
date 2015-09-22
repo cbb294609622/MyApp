@@ -9,7 +9,7 @@ public class HomeFragment extends BaseFragment {
 
 	@Override
 	public View initView() {
-		TextView tv = new TextView(context);
+		TextView tv = new TextView(mContext);
 		tv.setText("主页");
 		return tv;
 	}
@@ -17,5 +17,4 @@ public class HomeFragment extends BaseFragment {
 	@Override
 	public void initData() {
 	}
-
 }

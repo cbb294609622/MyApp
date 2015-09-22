@@ -6,4 +6,7 @@
     <color name="transparent_bg">#00000000</color>
     <color name="white_bg">#ffffff</color>
     <color name="gaoliang_bg">#1ca9bd</color>
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
 </resources>

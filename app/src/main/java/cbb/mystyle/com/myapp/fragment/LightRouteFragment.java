@@ -9,7 +9,7 @@ public class LightRouteFragment extends BaseFragment {
 
 	@Override
 	public View initView() {
-		TextView tv = new TextView(context);
+		TextView tv = new TextView(mContext);
 		tv.setText("亮点行程");
 		return tv;
 	}

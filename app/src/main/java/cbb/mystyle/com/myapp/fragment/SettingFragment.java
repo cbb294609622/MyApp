@@ -9,7 +9,7 @@ public class SettingFragment extends BaseFragment {
 
 	@Override
 	public View initView() {
-		TextView tv = new TextView(context);
+		TextView tv = new TextView(mContext);
 		tv.setText("设置中心");
 		return tv;
 	}

@@ -9,7 +9,7 @@ public class AboutFragment extends BaseFragment {
 
 	@Override
 	public View initView() {
-		TextView tv = new TextView(context);
+		TextView tv = new TextView(mContext);
 		tv.setText("关于我们");
 		return tv;
 	}
