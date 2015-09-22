@@ -222,7 +222,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case 3:
                 if (lightRouteFragment == null){
                     //为空 创建 并添加 然后显示
-                    lightRouteFragment = new LightRouteFragment();
+//                    lightRouteFragment = new LightRouteFragment();
                     transaction.add(R.id.fl_main, lightRouteFragment);
                 }else{
                     // 如果homeFragment不为空，则直接显示

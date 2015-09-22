@@ -3,6 +3,8 @@ package cbb.mystyle.com.myapp.application;
 import android.app.Application;
 import android.content.Context;
 
+import cbb.mystyle.com.myapp.error.CrashHandler;
+
 
 /**
  * Created by BoBo on 2015/9/15.
@@ -17,6 +19,10 @@ public class BaseApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        mApplicationContext = this;
+        mApplicationContext = getApplicationContext();
+
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(mApplicationContext);
+
     }
 }
