@@ -7,3 +7,5 @@
     右上角popuwindow
 #小BUG
     解决上次提交DragLayout类有编码冲突问题
+#Fragment增加
+    目前切换很有可能有小BUG，下一步操作会增加全局异常捕获

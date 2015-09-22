@@ -49,14 +49,12 @@
                 android:layout_marginRight="10dp"
                 android:src="@drawable/onoff_selector" />
         </RelativeLayout>
-        <ListView
-            android:id="@+id/lv_main"
+        <FrameLayout
+            android:id="@+id/fl_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:listSelector="@drawable/home_listview_select"
-            android:scrollbars="none"
+            android:layout_height="wrap_content"
             >
-        </ListView>
+        </FrameLayout>
     </cbb.mystyle.com.myapp.view.MyLinearLayout>
 
 </cbb.mystyle.com.myapp.view.DragLayout>

@@ -7,7 +7,6 @@
         android:id="@+id/tv_slide_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:drawableLeft="@mipmap/img_popu_phone"
         android:textColor="#fff"
         android:gravity="center_vertical"
         android:textSize="20sp"

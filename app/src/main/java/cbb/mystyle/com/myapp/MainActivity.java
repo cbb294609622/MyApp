@@ -1,46 +1,47 @@
 package cbb.mystyle.com.myapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.CycleInterpolator;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
 
-import java.util.Random;
-
-import cbb.mystyle.com.myapp.adapter.HomeSetAdapter;
 import cbb.mystyle.com.myapp.adapter.LeftSetAdapter;
 import cbb.mystyle.com.myapp.data.DefaultDataBean;
-import cbb.mystyle.com.myapp.utils.UtilTools;
+import cbb.mystyle.com.myapp.fragment.AboutFragment;
+import cbb.mystyle.com.myapp.fragment.ExpectFragment;
+import cbb.mystyle.com.myapp.fragment.HomeFragment;
+import cbb.mystyle.com.myapp.fragment.LightRouteFragment;
+import cbb.mystyle.com.myapp.fragment.PersonalFragment;
+import cbb.mystyle.com.myapp.fragment.PictureFragment;
+import cbb.mystyle.com.myapp.fragment.SettingFragment;
 import cbb.mystyle.com.myapp.view.DragLayout;
 import cbb.mystyle.com.myapp.view.MyLinearLayout;
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends FragmentActivity implements View.OnClickListener{
     /**
      * 左侧侧拉ListView
      */
     private ListView mLeftList;
-    /**
-     * 主界面ListView
-     */
-    private ListView mMainList;
     /**
      * 头像
      */
@@ -67,10 +68,46 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private boolean rightFlag = true;
     private Context mContext;
     private PopupWindow popupWindow;
-
+    private FrameLayout fl_main;
 
     private RelativeLayout rl_actionbar;
-
+    /**
+     * 用于对Fragment进行管理
+     */
+    private FragmentManager fragmentManager;
+    /**
+     * Fragmnet事物的开启
+     */
+    private FragmentTransaction transaction;
+    /**
+     * 默认显示页
+     * 主页Fragment
+     */
+    private HomeFragment homeFragment;
+    /**
+     * 个人中心
+     */
+    private PersonalFragment personalFragment;
+    /**
+     * 图片浏览
+     */
+    private PictureFragment pictureFragment;
+    /**
+     * 亮点行程
+     */
+    private LightRouteFragment lightRouteFragment;
+    /**
+     * 期待加入
+     */
+    private ExpectFragment expectFragment;
+    /**
+     * 关于我们
+     */
+    private AboutFragment aboutFragment;
+    /**
+     * 设置中心
+     */
+    private SettingFragment settingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +118,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
         setContentView(R.layout.activity_main);
         mContext = this;
+        fragmentManager = getSupportFragmentManager();
 
         initView();
         initData();
         leftLinster();
+        setTabSelection(0);
     }
 
     /**
@@ -93,10 +132,163 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private void initData() {
         //左面板侧拉，内部数据填充
         mLeftList.setAdapter(new LeftSetAdapter(DefaultDataBean.leftItemData(), mContext));
+
+        mLeftList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        setTabSelection(0);
+                        tv_title.setText("My APP");
+                        break;
+                    case 1:
+                        setTabSelection(1);
+                        tv_title.setText("个人中心");
+                        break;
+                    case 2:
+                        setTabSelection(2);
+                        tv_title.setText("图片浏览");
+                        break;
+                    case 3:
+                        setTabSelection(3);
+                        tv_title.setText("亮点行程");
+                        break;
+                    case 4:
+                        setTabSelection(4);
+                        tv_title.setText("期待加入");
+                        break;
+                    case 5:
+                        setTabSelection(5);
+                        tv_title.setText("关于我们");
+                        break;
+                    case 6:
+                        setTabSelection(6);
+                        tv_title.setText("设置中心");
+                        break;
+                }
+                mDragLayout.close(true);
+            }
+        });
+
         //home页数据展示
-        mMainList.setAdapter(new HomeSetAdapter(DefaultDataBean.homeItemData(),mContext));
         iv_header.setOnClickListener(this);
         iv_function.setOnClickListener(this);
+    }
+
+    /**
+     * 根据index 进行选择显示的Framgnet
+     * @param index 界面指引
+     */
+    private void setTabSelection(int index) {
+        transaction = fragmentManager.beginTransaction();
+        //显示之前全部隐藏 以避免重叠显示
+        hideFragments(transaction);
+
+        //判断选择的是哪一个Fragment
+        switch (index) {
+            case 0:
+                if (homeFragment == null){
+                    //为空 创建 并添加 然后显示
+                    homeFragment = new HomeFragment();
+                    transaction.add(R.id.fl_main, homeFragment);
+                }else{
+                    // 如果homeFragment不为空，则直接显示
+                    transaction.show(homeFragment);
+                }
+
+                break;
+            case 1:
+                if (personalFragment == null){
+                    //为空 创建 并添加 然后显示
+                    personalFragment = new PersonalFragment();
+                    transaction.add(R.id.fl_main, personalFragment);
+                }else{
+                    // 如果homeFragment不为空，则直接显示
+                    transaction.show(personalFragment);
+                }
+
+                break;
+            case 2:
+                if (pictureFragment == null){
+                    //为空 创建 并添加 然后显示
+                    pictureFragment = new PictureFragment();
+                    transaction.add(R.id.fl_main, pictureFragment);
+                }else{
+                    // 如果homeFragment不为空，则直接显示
+                    transaction.show(pictureFragment);
+                }
+
+                break;
+            case 3:
+                if (lightRouteFragment == null){
+                    //为空 创建 并添加 然后显示
+                    lightRouteFragment = new LightRouteFragment();
+                    transaction.add(R.id.fl_main, lightRouteFragment);
+                }else{
+                    // 如果homeFragment不为空，则直接显示
+                    transaction.show(lightRouteFragment);
+                }
+                break;
+            case 4:
+                if (expectFragment == null){
+                    //为空 创建 并添加 然后显示
+                    expectFragment = new ExpectFragment();
+                    transaction.add(R.id.fl_main, expectFragment);
+                }else{
+                    // 如果homeFragment不为空，则直接显示
+                    transaction.show(expectFragment);
+                }
+                break;
+            case 5:
+                if (aboutFragment == null){
+                    //为空 创建 并添加 然后显示
+                    aboutFragment = new AboutFragment();
+                    transaction.add(R.id.fl_main, aboutFragment);
+                }else{
+                    // 如果homeFragment不为空，则直接显示
+                    transaction.show(aboutFragment);
+                }
+                break;
+            case 6:
+                if (settingFragment == null){
+                    //为空 创建 并添加 然后显示
+                    settingFragment = new SettingFragment();
+                    transaction.add(R.id.fl_main, settingFragment);
+                }else{
+                    // 如果homeFragment不为空，则直接显示
+                    transaction.show(settingFragment);
+                }
+                break;
+        }
+        transaction.commitAllowingStateLoss();
+    }
+
+    /**
+     * 隐藏全部页面
+     * @param transaction
+     */
+    private void hideFragments(FragmentTransaction transaction){
+        if (homeFragment != null){
+            transaction.hide(homeFragment);
+        }
+        if (personalFragment != null){
+            transaction.hide(personalFragment);
+        }
+        if (pictureFragment != null){
+            transaction.hide(pictureFragment);
+        }
+        if (lightRouteFragment != null){
+            transaction.hide(lightRouteFragment);
+        }
+        if (expectFragment != null){
+            transaction.hide(expectFragment);
+        }
+        if (aboutFragment != null){
+            transaction.hide(aboutFragment);
+        }
+        if (settingFragment != null){
+            transaction.hide(settingFragment);
+        }
     }
 
     /**
@@ -144,13 +336,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
      */
     private void initView() {
         mLeftList = (ListView) findViewById(R.id.lv_left);
-        mMainList = (ListView) findViewById(R.id.lv_main);
         iv_header = (ImageView) findViewById(R.id.iv_header);
         mLinearLayout = (MyLinearLayout) findViewById(R.id.mll);
         tv_title = (TextView) findViewById(R.id.tv_title);
         iv_function = (ImageView) findViewById(R.id.iv_function);
         rl_actionbar = (RelativeLayout) findViewById(R.id.rl_actionbar);
         mDragLayout = (DragLayout) findViewById(R.id.dl);
+        fl_main = (FrameLayout) findViewById(R.id.fl_main);
     }
 
     /**
@@ -267,6 +459,45 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     iv_function.setSelected(true);
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        closeFragment();
+    }
+
+    /**
+     * 关闭所以Fragment相关的代码  以便于管理内存泄漏
+     */
+    private void closeFragment() {
+        if (transaction != null){
+            transaction = null;
+        }
+        if (fragmentManager != null){
+            fragmentManager = null;
+        }
+        if (homeFragment != null){
+            homeFragment = null;
+        }
+        if (personalFragment != null){
+            personalFragment = null;
+        }
+        if (pictureFragment != null){
+            pictureFragment = null;
+        }
+        if (lightRouteFragment != null){
+            lightRouteFragment = null;
+        }
+        if (expectFragment != null){
+            expectFragment = null;
+        }
+        if (aboutFragment != null){
+            aboutFragment = null;
+        }
+        if (settingFragment != null){
+            settingFragment = null;
         }
     }
 }

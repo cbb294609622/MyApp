@@ -34,9 +34,8 @@ public class DefaultDataBean {
 	public static List<String> leftItemData() {
 		leftItem = new ArrayList<String>();
 		leftItem.add("我的首页");
-		leftItem.add("个人主页");
+		leftItem.add("个人中心");
 		leftItem.add("图片浏览");
-		leftItem.add("徒步旅游");
 		leftItem.add("亮点行程");
 		leftItem.add("期待加入");
 		leftItem.add("关于我们");
