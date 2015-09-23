@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cbb.mystyle.com.myapp.R;
+import cbb.mystyle.com.myapp.utils.MD5Utils;
 
 public class DefaultDataBean {
 	/**
@@ -26,6 +27,19 @@ public class DefaultDataBean {
 	 * popuwindow文字
 	 */
 	public static String[] imgName = {"手机互传", "爱信电话", "新建群组", "扫二维码", "电脑共享"};
+
+	/**
+	 * 公钥对接
+	 */
+	public static String BASE_PUBLIC_KEY = "@#$%*()_++_(*&*";
+
+	/**
+	 * 密钥
+	 */
+	public static String compareKey(){
+		return MD5Utils.digesPassword("111111" + BASE_PUBLIC_KEY);
+	}
+
 
 	/**
 	 * 左侧菜单栏的数据填充

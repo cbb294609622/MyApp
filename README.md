@@ -21,3 +21,7 @@
             ：com.mining.app.zxing
     增加了一个jar文件,是二维码所需的jar包
             ：core.jar
+#增加应用锁
+    进入应用，SplashActivity界面过后，应用锁显示，PasswordActivity界面
+    它所依赖的各种java类我都统一放在了包:pwd下面了
+    下次，打算搞一个双击退出应用的东西~~

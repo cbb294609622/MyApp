@@ -102,7 +102,7 @@ public class SplashActivity extends Activity {
      * 关闭页面
      */
     private void closeAD() {
-        startActivity(new Intent(mContext, MainActivity.class));
+        startActivity(new Intent(mContext, PassWordActivity.class));
         ActivityAnimUitl.isRightLeft(SplashActivity.this);
         finish();
     }
