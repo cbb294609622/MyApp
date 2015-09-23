@@ -472,5 +472,25 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             settingFragment = null;
         }
     }
+//------------------------------------------------------
+    /**
+     * 判断标记
+     */
+    private long mPressedTime = 0;
+    /**
+     * 退出应用
+     */
+    public void onBackPressed() {
+        //获取第一次按键时间
+        long mNowTime = System.currentTimeMillis();
+        if ((mNowTime-mPressedTime) > 2000) {
+            MyToastUitl.showToast(mContext, "再按一次退出程序", MyToastUitl.SHORT_TOAST);
+            mPressedTime = mNowTime;
+        }else {
+            finish();
+            System.exit(0);
+        }
+    }
+
 }
 

@@ -25,3 +25,5 @@
     进入应用，SplashActivity界面过后，应用锁显示，PasswordActivity界面
     它所依赖的各种java类我都统一放在了包:pwd下面了
     下次，打算搞一个双击退出应用的东西~~
+#双击退出，已经搞好了
+    明天还是优化下Activity吧！抽取一个公共的Base，不然这样太麻烦了
