@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import cbb.mystyle.com.myapp.base.BaseActivity;
 import cbb.mystyle.com.myapp.utils.ActivityAnimUitl;
 import cbb.mystyle.com.myapp.utils.MyToastUitl;
 import cbb.mystyle.com.myapp.utils.SharedPreferencesUitl;
@@ -28,38 +29,23 @@ import cbb.mystyle.com.myapp.view.DepthPageTransformer;
  * 引导界面
  * Created by BoBo on 2015/9/2.
  */
-public class GuideActivity extends Activity {
-    private Context mContext;
+public class GuideActivity extends BaseActivity {
     private ViewPager guide_vp;
     private Button guide_btn;
     private List<View> pageViews;
     private LinearLayout guide_ll;
     private List<View> viewList;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // 透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-        setContentView(R.layout.activity_guide);
-
+    public void initView() {
         mContext = GuideActivity.this;
-
-        init();
-        initView();
-        initData();
-
-    }
-
-    private void initView() {
+        setContentView(R.layout.activity_guide);
         guide_vp = (ViewPager) findViewById(R.id.guide_vp);
         guide_btn = (Button) findViewById(R.id.guide_btn);
         guide_ll = (LinearLayout) findViewById(R.id.guide_ll);
+        init();
     }
 
-    private void initData() {
+    public void initData() {
         boolean isForst = SharedPreferencesUitl.getBooleanData(mContext, "isForst", false);
 //        isForst = false;
         if (isForst) {
@@ -216,27 +202,5 @@ public class GuideActivity extends Activity {
             container.removeView((View) object);
         }
     }
-
-    //------------------------------------------------------
-    /**
-     * 判断标记
-     */
-    private long mPressedTime = 0;
-    /**
-     * 退出应用
-     */
-    public void onBackPressed() {
-        //获取第一次按键时间
-        long mNowTime = System.currentTimeMillis();
-        if ((mNowTime-mPressedTime) > 2000) {
-            MyToastUitl.showToast(mContext,"再按一次退出程序",MyToastUitl.SHORT_TOAST);
-            mPressedTime = mNowTime;
-        }else {
-            finish();
-            System.exit(0);
-        }
-    }
-
-
 }
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import cbb.mystyle.com.myapp.base.BaseActivity;
 import cbb.mystyle.com.myapp.utils.ActivityAnimUitl;
 import cbb.mystyle.com.myapp.utils.MyToastUitl;
 
@@ -20,48 +21,16 @@ import cbb.mystyle.com.myapp.utils.MyToastUitl;
  * 广告界面
  * Created by BoBo on 2015/9/2.
  */
-public class SplashActivity extends Activity {
-    private Context mContext;
+public class SplashActivity extends BaseActivity {
     private TextView splash_time;
     private TextView splash_version;
     private static final int AD_show = 6;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // 透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-        setContentView(R.layout.activity_splash);
+
+    public void initView() {
         mContext = SplashActivity.this;
+        setContentView(R.layout.activity_splash);
         MyToastUitl.showToastFlag(mContext, "广告界面");
 
-        initView();
-        initData();
-
-    }
-
-    private void initData() {
-        showAD();
-        splash_time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeAD();
-            }
-        });
-//        Timer timer = new Timer();
-//        TimerTask timerTask = new TimerTask() {
-//            @Override
-//            public void run() {
-//                startActivity(new Intent(mContext,MainActivity.class));
-//                ActivityAnimUitl.isRightLeft(SplashActivity.this);
-//                finish();
-//            }
-//        };
-//        timer.schedule(timerTask,1000*4);
-    }
-
-    private void initView() {
         splash_time = (TextView) findViewById(R.id.splash_time);
         splash_version = (TextView) findViewById(R.id.splash_version);
 
@@ -73,6 +42,18 @@ public class SplashActivity extends Activity {
             e.printStackTrace();
         }
     }
+
+    public void initData() {
+        showAD();
+        splash_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeAD();
+            }
+        });
+    }
+
+
 
     /**
      * 继承 CountDownTimer 防范
@@ -111,34 +92,4 @@ public class SplashActivity extends Activity {
         MyCountDownTimer mc = new MyCountDownTimer(AD_show * 1000, 1000);
         mc.start();
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        finish();
-//        ActivityAnimUitl.isLeftRight(SplashActivity.this);
-//        super.onBackPressed();
-//    }
-    //------------------------------------------------------
-    /**
-     * 判断标记
-     */
-    private long mPressedTime = 0;
-    /**
-     * 退出应用
-     */
-    public void onBackPressed() {
-        //获取第一次按键时间
-        long mNowTime = System.currentTimeMillis();
-        if ((mNowTime-mPressedTime) > 2000) {
-            MyToastUitl.showToast(mContext, "再按一次退出程序", MyToastUitl.SHORT_TOAST);
-            mPressedTime = mNowTime;
-        }else {
-            finish();
-            System.exit(0);
-        }
-    }
-
-
-
-
 }

@@ -37,7 +37,7 @@ public class DefaultDataBean {
 	 * 密钥
 	 */
 	public static String compareKey(){
-		return MD5Utils.digesPassword("111111" + BASE_PUBLIC_KEY);
+		return MD5Utils.digesPassword("199412" + BASE_PUBLIC_KEY);
 	}
 
 

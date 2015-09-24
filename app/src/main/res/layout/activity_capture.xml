@@ -20,9 +20,6 @@
 
         <include
             android:id="@+id/include1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             layout="@layout/qrcode_header" />
     </RelativeLayout>
 

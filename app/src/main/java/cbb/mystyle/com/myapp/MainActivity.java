@@ -27,6 +27,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
 
 import cbb.mystyle.com.myapp.adapter.LeftSetAdapter;
+import cbb.mystyle.com.myapp.base.BaseActivity;
 import cbb.mystyle.com.myapp.data.DefaultDataBean;
 import cbb.mystyle.com.myapp.fragment.AboutFragment;
 import cbb.mystyle.com.myapp.fragment.ExpectFragment;
@@ -39,7 +40,7 @@ import cbb.mystyle.com.myapp.utils.MyToastUitl;
 import cbb.mystyle.com.myapp.view.DragLayout;
 import cbb.mystyle.com.myapp.view.MyLinearLayout;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener{
     /**
      * 回调的一个标识
      */
@@ -72,7 +73,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      * 利用标记判断图标
      */
     private boolean rightFlag = true;
-    private Context mContext;
     private PopupWindow popupWindow;
     private FrameLayout fl_main;
 
@@ -115,27 +115,28 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      */
     private SettingFragment settingFragment;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+    /**
+     * 初始化布局文件
+     */
+    public void initView() {
+        mContext = MainActivity.this;
         setContentView(R.layout.activity_main);
-        mContext = this;
         fragmentManager = getSupportFragmentManager();
 
-        initView();
-        initData();
-        leftLinster();
-        setTabSelection(0);
+        mLeftList = (ListView) findViewById(R.id.lv_left);
+        iv_header = (ImageView) findViewById(R.id.iv_header);
+        mLinearLayout = (MyLinearLayout) findViewById(R.id.mll);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        iv_function = (ImageView) findViewById(R.id.iv_function);
+        rl_actionbar = (RelativeLayout) findViewById(R.id.rl_actionbar);
+        mDragLayout = (DragLayout) findViewById(R.id.dl);
+        fl_main = (FrameLayout) findViewById(R.id.fl_main);
     }
 
     /**
      * 数据的填充
      */
-    private void initData() {
+    public void initData() {
         //左面板侧拉，内部数据填充
         mLeftList.setAdapter(new LeftSetAdapter(DefaultDataBean.leftItemData(), mContext));
 
@@ -179,6 +180,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //home页数据展示
         iv_header.setOnClickListener(this);
         iv_function.setOnClickListener(this);
+
+        leftLinster();
+        setTabSelection(0);
     }
 
     /**
@@ -338,20 +342,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * 初始化布局文件
-     */
-    private void initView() {
-        mLeftList = (ListView) findViewById(R.id.lv_left);
-        iv_header = (ImageView) findViewById(R.id.iv_header);
-        mLinearLayout = (MyLinearLayout) findViewById(R.id.mll);
-        tv_title = (TextView) findViewById(R.id.tv_title);
-        iv_function = (ImageView) findViewById(R.id.iv_function);
-        rl_actionbar = (RelativeLayout) findViewById(R.id.rl_actionbar);
-        mDragLayout = (DragLayout) findViewById(R.id.dl);
-        fl_main = (FrameLayout) findViewById(R.id.fl_main);
-    }
-
-    /**
      * popuwindow
      * @param v 属于那个控件 可以说是父窗体
      */
@@ -472,25 +462,5 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             settingFragment = null;
         }
     }
-//------------------------------------------------------
-    /**
-     * 判断标记
-     */
-    private long mPressedTime = 0;
-    /**
-     * 退出应用
-     */
-    public void onBackPressed() {
-        //获取第一次按键时间
-        long mNowTime = System.currentTimeMillis();
-        if ((mNowTime-mPressedTime) > 2000) {
-            MyToastUitl.showToast(mContext, "再按一次退出程序", MyToastUitl.SHORT_TOAST);
-            mPressedTime = mNowTime;
-        }else {
-            finish();
-            System.exit(0);
-        }
-    }
-
 }
 

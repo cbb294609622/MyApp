@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import cbb.mystyle.com.myapp.base.BaseActivity;
 import cbb.mystyle.com.myapp.data.DefaultDataBean;
 import cbb.mystyle.com.myapp.pwd.GridPasswordView;
 import cbb.mystyle.com.myapp.utils.ActivityAnimUitl;
@@ -19,29 +20,21 @@ import cbb.mystyle.com.myapp.utils.MyToastUitl;
 /**
  * Created by BoBo on 2015/9/23.
  */
-public class PassWordActivity extends Activity  implements View.OnClickListener {
-    private Context mContext;
+public class PassWordActivity extends BaseActivity implements View.OnClickListener {
     private GridPasswordView gridpassword;
     private String passwordStr = "";
     private Button confirmBtn;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //沉浸状态栏
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+    public void initView() {
         //弹出键盘，并且键盘不会顶布局文件
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
                         | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
                         | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
         );
-
-        setContentView(R.layout.activity_password);
         mContext = PassWordActivity.this;
+        setContentView(R.layout.activity_password);
 
         gridpassword = (GridPasswordView) findViewById(R.id.password);
         gridpassword.setOnPasswordChangedListener(passlistener);
@@ -52,6 +45,11 @@ public class PassWordActivity extends Activity  implements View.OnClickListener 
             confirmBtn.setTextColor(Color.GRAY);
             confirmBtn.setBackgroundResource(R.drawable.shape_pwd_normal);
         }
+
+    }
+
+    @Override
+    public void initData() {
         // 确定按钮点击事件
         confirmBtn.setOnClickListener(this);
     }
@@ -95,31 +93,9 @@ public class PassWordActivity extends Activity  implements View.OnClickListener 
                     ActivityAnimUitl.isRightLeft(PassWordActivity.this);
                     finish();
                 } else {
-                    MyToastUitl.showToast(mContext,"验证失败,请重试",MyToastUitl.SHORT_TOAST);
+                    MyToastUitl.showToast(mContext, "验证失败,请重试", MyToastUitl.SHORT_TOAST);
                 }
                 break;
         }
     }
-
-
-    //------------------------------------------------------
-    /**
-     * 判断标记
-     */
-    private long mPressedTime = 0;
-    /**
-     * 退出应用
-     */
-    public void onBackPressed() {
-        //获取第一次按键时间
-        long mNowTime = System.currentTimeMillis();
-        if ((mNowTime-mPressedTime) > 2000) {
-            MyToastUitl.showToast(mContext, "再按一次退出程序", MyToastUitl.SHORT_TOAST);
-            mPressedTime = mNowTime;
-        }else {
-            finish();
-            System.exit(0);
-        }
-    }
-
 }
