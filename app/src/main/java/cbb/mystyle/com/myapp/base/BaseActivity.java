@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.WindowManager;
 
-import cbb.mystyle.com.myapp.application.BaseApplication;
 import cbb.mystyle.com.myapp.utils.MyToastUitl;
 
 /**

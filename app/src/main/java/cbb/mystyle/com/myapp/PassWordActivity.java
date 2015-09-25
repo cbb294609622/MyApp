@@ -89,7 +89,7 @@ public class PassWordActivity extends BaseActivity implements View.OnClickListen
             case R.id.confirm_btn:
                 String pwd = MD5Utils.digesPassword(passwordStr + DefaultDataBean.BASE_PUBLIC_KEY);
                 if (pwd.equals(DefaultDataBean.compareKey())) {
-                    startActivity(new Intent(mContext, MainActivity.class));
+                    startActivity(new Intent(mContext, GestureActivity.class));
                     ActivityAnimUitl.isRightLeft(PassWordActivity.this);
                     finish();
                 } else {

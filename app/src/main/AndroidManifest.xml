@@ -28,6 +28,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity" />
         <activity android:name=".PassWordActivity" />
+        <activity android:name=".GestureActivity" />
         <activity
             android:name=".MipcaCaptureActivity"
             android:configChanges="orientation|keyboardHidden"
