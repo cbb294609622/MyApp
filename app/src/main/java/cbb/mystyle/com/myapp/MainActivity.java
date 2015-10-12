@@ -252,7 +252,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             case 5:
                 if (aboutFragment == null){
                     //为空 创建 并添加 然后显示
-                    aboutFragment = new AboutFragment();
+//                    aboutFragment = new AboutFragment();
                     transaction.add(R.id.fl_main, aboutFragment);
                 }else{
                     // 如果homeFragment不为空，则直接显示
@@ -262,7 +262,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             case 6:
                 if (settingFragment == null){
                     //为空 创建 并添加 然后显示
-//                    settingFragment = new SettingFragment();
+                    settingFragment = new SettingFragment();
                     transaction.add(R.id.fl_main, settingFragment);
                 }else{
                     // 如果homeFragment不为空，则直接显示

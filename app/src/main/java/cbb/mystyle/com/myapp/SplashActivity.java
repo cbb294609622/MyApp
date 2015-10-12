@@ -15,6 +15,7 @@ import android.widget.TextView;
 import cbb.mystyle.com.myapp.base.BaseActivity;
 import cbb.mystyle.com.myapp.utils.ActivityAnimUitl;
 import cbb.mystyle.com.myapp.utils.MyToastUitl;
+import cbb.mystyle.com.myapp.utils.SharedPreferencesUitl;
 
 
 /**
@@ -25,6 +26,7 @@ public class SplashActivity extends BaseActivity {
     private TextView splash_time;
     private TextView splash_version;
     private static final int AD_show = 6;
+    private boolean CLOSE_TIMER = true;
 
     public void initView() {
         mContext = SplashActivity.this;
@@ -37,7 +39,7 @@ public class SplashActivity extends BaseActivity {
         try {
             PackageManager manager = getPackageManager();
             PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
-            splash_version.setText("版本号: v"+info.versionName);
+            splash_version.setText("版本号: v" + info.versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -49,10 +51,10 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 closeAD();
+                CLOSE_TIMER = false;
             }
         });
     }
-
 
 
     /**
@@ -70,7 +72,13 @@ public class SplashActivity extends BaseActivity {
 
         @Override
         public void onFinish() {
-            closeAD();
+            /**
+             * 为true 说明 用户没有跳过广告页面
+             * 为false 说明 用户跳过了广告界面
+             */
+            if (CLOSE_TIMER) {
+                closeAD();
+            }
         }
 
         @Override
@@ -80,12 +88,42 @@ public class SplashActivity extends BaseActivity {
     }
 
     /**
-     * 关闭页面
+     * 关闭页面  有四种可能
+     * 1.安全锁全部开启，需要一一跳转
+     * 2.数字锁关闭，
+     * 3.手势锁关闭
+     * 4.全部关闭
      */
     private void closeAD() {
-        startActivity(new Intent(mContext, PassWordActivity.class));
-        ActivityAnimUitl.isRightLeft(SplashActivity.this);
-        finish();
+        Boolean isSettingNumber = SharedPreferencesUitl.getBooleanData(mContext,
+                "isSettingNumber", false);
+        Boolean isSettingGesture = SharedPreferencesUitl.getBooleanData(mContext,
+                "isSettingGesture", false);
+
+        if (isSettingNumber && isSettingGesture){
+            //第一个流程全为True开启状态
+            startActivity(new Intent(mContext, PassWordActivity.class));
+            ActivityAnimUitl.isRightLeft(SplashActivity.this);
+            finish();
+        }else if (!isSettingNumber && !isSettingGesture){
+            //第二个流程全为False关闭状态
+            startActivity(new Intent(mContext, MainActivity.class));
+            ActivityAnimUitl.isRightLeft(SplashActivity.this);
+            finish();
+        }else if (isSettingNumber && !isSettingGesture){
+            //第三个流程，数字锁开启，手势锁关闭，跳过手势锁
+            startActivity(new Intent(mContext, PassWordActivity.class));
+            ActivityAnimUitl.isRightLeft(SplashActivity.this);
+            finish();
+        }else if (!isSettingNumber && isSettingGesture){
+            //第四个流程，数字锁关闭，手势锁开启，跳过数字锁
+            startActivity(new Intent(mContext, GestureActivity.class));
+            ActivityAnimUitl.isRightLeft(SplashActivity.this);
+            finish();
+        }
+
+
+
     }
 
     private void showAD() {

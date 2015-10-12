@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import cbb.mystyle.com.myapp.error.CrashHandler;
+import cbb.mystyle.com.myapp.utils.SharedPreferencesUitl;
 
 
 /**
@@ -23,6 +24,5 @@ public class BaseApplication extends Application{
 
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(mApplicationContext);
-
     }
 }

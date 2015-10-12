@@ -16,6 +16,7 @@ import cbb.mystyle.com.myapp.pwd.GridPasswordView;
 import cbb.mystyle.com.myapp.utils.ActivityAnimUitl;
 import cbb.mystyle.com.myapp.utils.MD5Utils;
 import cbb.mystyle.com.myapp.utils.MyToastUitl;
+import cbb.mystyle.com.myapp.utils.SharedPreferencesUitl;
 
 /**
  * Created by BoBo on 2015/9/23.
@@ -89,9 +90,18 @@ public class PassWordActivity extends BaseActivity implements View.OnClickListen
             case R.id.confirm_btn:
                 String pwd = MD5Utils.digesPassword(passwordStr + DefaultDataBean.BASE_PUBLIC_KEY);
                 if (pwd.equals(DefaultDataBean.compareKey())) {
-                    startActivity(new Intent(mContext, GestureActivity.class));
-                    ActivityAnimUitl.isRightLeft(PassWordActivity.this);
-                    finish();
+                    Boolean isSettingGesture = SharedPreferencesUitl.getBooleanData(mContext,
+                            "isSettingGesture", false);
+                    if (isSettingGesture){
+                        startActivity(new Intent(mContext, GestureActivity.class));
+                        ActivityAnimUitl.isRightLeft(PassWordActivity.this);
+                        finish();
+                    }else{
+                        startActivity(new Intent(mContext, MainActivity.class));
+                        ActivityAnimUitl.isRightLeft(PassWordActivity.this);
+                        finish();
+                    }
+
                 } else {
                     MyToastUitl.showToast(mContext, "验证失败,请重试", MyToastUitl.SHORT_TOAST);
                 }
