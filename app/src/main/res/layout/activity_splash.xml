@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/img_splash_bg">
-
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/splash_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/img_splash_bg"
+        android:scaleType="fitXY"
+        />
     <View
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -20,7 +25,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="40dp"
         android:text="6s"
-        android:textColor="@color/white_bg"
+        android:textColor="@color/black_bg"
         android:textSize="25sp" />
 
     <TextView

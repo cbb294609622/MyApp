@@ -38,6 +38,7 @@ public class DepthPageTransformer implements ViewPager.PageTransformer {
 
         } else { // (1,+Infinity]
             // This page is way off-screen to the right.
+
             view.setAlpha(0);
         }
     }

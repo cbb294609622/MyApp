@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import cbb.mystyle.com.myapp.base.BaseActivity;
@@ -28,6 +31,8 @@ public class SplashActivity extends BaseActivity {
     private static final int AD_show = 6;
     private boolean CLOSE_TIMER = true;
 
+    private ImageView splash_img;
+
     public void initView() {
         mContext = SplashActivity.this;
         setContentView(R.layout.activity_splash);
@@ -35,6 +40,11 @@ public class SplashActivity extends BaseActivity {
 
         splash_time = (TextView) findViewById(R.id.splash_time);
         splash_version = (TextView) findViewById(R.id.splash_version);
+        splash_img = (ImageView) findViewById(R.id.splash_img);
+        //让图片动起来
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.alpha_scale_translate);
+        splash_img.setAnimation(animation);
+        animation.setFillAfter(true);
 
         try {
             PackageManager manager = getPackageManager();

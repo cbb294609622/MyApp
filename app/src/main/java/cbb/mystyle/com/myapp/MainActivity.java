@@ -1,15 +1,11 @@
 package cbb.mystyle.com.myapp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.CycleInterpolator;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -24,7 +20,6 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Toast;
 
 import cbb.mystyle.com.myapp.adapter.LeftSetAdapter;
 import cbb.mystyle.com.myapp.base.BaseActivity;
@@ -194,6 +189,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         //显示之前全部隐藏 以避免重叠显示
         hideFragments(transaction);
 
+        //自定义动画
+        transaction.setCustomAnimations(R.anim.fragment_anim,R.anim.fragment_anim);
         //判断选择的是哪一个Fragment
         switch (index) {
             case 0:
@@ -252,7 +249,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             case 5:
                 if (aboutFragment == null){
                     //为空 创建 并添加 然后显示
-//                    aboutFragment = new AboutFragment();
+                    aboutFragment = new AboutFragment();
                     transaction.add(R.id.fl_main, aboutFragment);
                 }else{
                     // 如果homeFragment不为空，则直接显示

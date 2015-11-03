@@ -87,4 +87,17 @@ public class DefaultDataBean {
 		homeItem.add("宋万");
 		return homeItem;
 	}
+
+	/**
+	 * 音标
+	 */
+	public static String[]  phoneticSymbolData = {
+			"手机互传",
+			"爱信电话",
+			"新建群组",
+			"扫二维码",
+			"电脑共享"
+	};
+
+
 }
