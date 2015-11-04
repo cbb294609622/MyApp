@@ -1,11 +1,15 @@
 package cbb.mystyle.com.myapp.fragment;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.zcw.togglebutton.ToggleButton;
 import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
+
+import cbb.mystyle.com.myapp.GuideActivity;
 import cbb.mystyle.com.myapp.R;
 import cbb.mystyle.com.myapp.base.BaseFragment;
 import cbb.mystyle.com.myapp.utils.MyToastUitl;
@@ -24,6 +28,13 @@ public class SettingFragment extends BaseFragment{
 	 */
 	@ViewInject(R.id.setting_toggle_gesture)
 	private ToggleButton setting_toggle_gesture;
+
+	/**
+	 * 引导界面
+	 */
+	@ViewInject(R.id.setting_splash_click)
+	private RelativeLayout setting_splash_click;
+
 
 	@Override
 	public View initView() {
@@ -88,5 +99,17 @@ public class SettingFragment extends BaseFragment{
 				}
 			}
 		});
+		//进入引导界面
+		setting_splash_click.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//跳转到引导界面
+				SharedPreferencesUitl.saveBooleanData(mContext, "isSettingFlag", true);
+
+				startActivity(new Intent(mContext,GuideActivity.class));
+			}
+		});
+
+
 	}
 }

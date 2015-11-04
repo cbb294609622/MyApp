@@ -49,9 +49,16 @@ public class GuideActivity extends BaseActivity {
         boolean isForst = SharedPreferencesUitl.getBooleanData(mContext, "isForst", false);
 //        isForst = false;
         if (isForst) {
-            //不是第一次进入应用
-            MyToastUitl.showToastFlag(mContext, "不是第一次进入");
-            forwardSplash();
+            //查看是否是从设置界面过来的
+            boolean isSettingFlag = SharedPreferencesUitl.getBooleanData(mContext, "isSettingFlag", false);
+            if (!isSettingFlag) {
+                //不是第一次进入应用
+                MyToastUitl.showToastFlag(mContext, "不是第一次进入");
+                forwardSplash();
+                return;
+            }
+            initFill();
+
         } else {
             //是第一次进入应用
             MyToastUitl.showToastFlag(mContext, "是第一次进入");
@@ -73,22 +80,23 @@ public class GuideActivity extends BaseActivity {
         //清理点所在的线性布局
         guide_ll.removeAllViews();
         viewList = new ArrayList<View>();
-        for(int i=0;i<pageViews.size();i++){
+        for (int i = 0; i < pageViews.size(); i++) {
             View view = new View(mContext);
-            if(i == 0){
+            if (i == 0) {
                 view.setBackgroundResource(R.mipmap.point_focused);
-            }else{
+            } else {
                 view.setBackgroundResource(R.mipmap.point_unfocused);
             }
             //1,定义点的宽高
-            LayoutParams layoutParams = new LinearLayout.LayoutParams(20,20);
+            LayoutParams layoutParams = new LinearLayout.LayoutParams(20, 20);
             //2,给点设置间距
             layoutParams.setMargins(0, 0, 6, 0);
             //3,作用当前规则给子控件
-            guide_ll.addView(view,layoutParams);
+            guide_ll.addView(view, layoutParams);
             viewList.add(view);
         }
     }
+
     /**
      * ViewPager的各种配置
      */
@@ -115,15 +123,15 @@ public class GuideActivity extends BaseActivity {
                             forwardSplash();
                         }
                     });
-                }else{
+                } else {
                     guide_btn.setVisibility(View.GONE);
                 }
 
                 //处理点的逻辑
-                for(int i=0;i<viewList.size();i++){
-                    if(i == position){
+                for (int i = 0; i < viewList.size(); i++) {
+                    if (i == position) {
                         viewList.get(position).setBackgroundResource(R.mipmap.point_focused);
-                    }else{
+                    } else {
                         viewList.get(i).setBackgroundResource(R.mipmap.point_unfocused);
                     }
                 }
@@ -140,8 +148,13 @@ public class GuideActivity extends BaseActivity {
      * 进入广告页面
      */
     private void forwardSplash() {
-        startActivity(new Intent(mContext, SplashActivity.class));
-        ActivityAnimUitl.isRightLeft(GuideActivity.this);
+        boolean isSettingFlag = SharedPreferencesUitl.getBooleanData(mContext, "isSettingFlag", false);
+        if (!isSettingFlag) {
+            startActivity(new Intent(mContext, SplashActivity.class));
+            ActivityAnimUitl.isRightLeft(GuideActivity.this);
+
+        }
+        SharedPreferencesUitl.saveBooleanData(mContext, "isSettingFlag", false);
         finish();
     }
 
@@ -174,7 +187,6 @@ public class GuideActivity extends BaseActivity {
 
     /**
      * ViewPager的数据适配器
-     *
      */
     class GuideMyAdapter extends PagerAdapter {
 
@@ -192,7 +204,6 @@ public class GuideActivity extends BaseActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             container.addView(pageViews.get(position));
-
             return pageViews.get(position);
         }
 
