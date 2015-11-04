@@ -151,9 +151,8 @@ public class GuideActivity extends BaseActivity {
         boolean isSettingFlag = SharedPreferencesUitl.getBooleanData(mContext, "isSettingFlag", false);
         if (!isSettingFlag) {
             startActivity(new Intent(mContext, SplashActivity.class));
-            ActivityAnimUitl.isRightLeft(GuideActivity.this);
-
         }
+        ActivityAnimUitl.isRightLeft(GuideActivity.this);
         SharedPreferencesUitl.saveBooleanData(mContext, "isSettingFlag", false);
         finish();
     }
