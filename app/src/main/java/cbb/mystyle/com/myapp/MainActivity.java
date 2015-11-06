@@ -190,7 +190,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         hideFragments(transaction);
 
         //自定义动画
-        transaction.setCustomAnimations(R.anim.fragment_anim,R.anim.fragment_anim);
+
         //判断选择的是哪一个Fragment
         switch (index) {
             case 0:
@@ -257,6 +257,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
                 break;
             case 6:
+                transaction.setCustomAnimations(R.anim.fragment_anim,R.anim.fragment_anim);
                 if (settingFragment == null){
                     //为空 创建 并添加 然后显示
                     settingFragment = new SettingFragment();

@@ -47,3 +47,8 @@
 #设置界面增加通用设置
     点击 引导界面 一行 可以查看Guide引导界面
     修改一点小问题
+#第一层Fragment嵌套后在子View中再次嵌套Fragment
+    利用第三方的PagerSlidingTobStrip进行top标题制作。
+    制作方案是ViewPager+FragmentPagerAdapter.有个小BUG，从左向右滑动可以，但是从右向左就会拉出侧拉框
+        以解决。在国外大神的基础上 写了一个，感谢，感谢！
+        类:ChildViewPager

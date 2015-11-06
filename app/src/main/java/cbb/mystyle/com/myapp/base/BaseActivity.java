@@ -1,5 +1,6 @@
 package cbb.mystyle.com.myapp.base;
 
+
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import cbb.mystyle.com.myapp.utils.MyToastUitl;
 public abstract class BaseActivity extends FragmentActivity{
 
     public static Context mContext;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,7 @@ public abstract class BaseActivity extends FragmentActivity{
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
         mContext = getApplicationContext();
+
         initView();
         initData();
     }
