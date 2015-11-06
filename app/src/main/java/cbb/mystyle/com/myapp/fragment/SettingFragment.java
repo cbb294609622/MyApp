@@ -11,6 +11,7 @@ import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
 
 import cbb.mystyle.com.myapp.GuideActivity;
 import cbb.mystyle.com.myapp.R;
+import cbb.mystyle.com.myapp.SplashActivity;
 import cbb.mystyle.com.myapp.base.BaseFragment;
 import cbb.mystyle.com.myapp.utils.MyToastUitl;
 import cbb.mystyle.com.myapp.utils.SharedPreferencesUitl;
@@ -32,9 +33,14 @@ public class SettingFragment extends BaseFragment{
 	/**
 	 * 引导界面
 	 */
+	@ViewInject(R.id.setting_guide_click)
+	private RelativeLayout setting_guide_click;
+
+	/**
+	 * 广告界面
+	 */
 	@ViewInject(R.id.setting_splash_click)
 	private RelativeLayout setting_splash_click;
-
 
 	@Override
 	public View initView() {
@@ -100,16 +106,25 @@ public class SettingFragment extends BaseFragment{
 			}
 		});
 		//进入引导界面
+		setting_guide_click.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//跳转到引导界面
+				SharedPreferencesUitl.saveBooleanData(mContext, "isSettingFlag", true);
+
+				startActivity(new Intent(mContext, GuideActivity.class));
+			}
+		});
+		//进入广告界面
 		setting_splash_click.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				//跳转到引导界面
 				SharedPreferencesUitl.saveBooleanData(mContext, "isSettingFlag", true);
 
-				startActivity(new Intent(mContext,GuideActivity.class));
+				startActivity(new Intent(mContext, SplashActivity.class));
 			}
 		});
-
 
 	}
 }

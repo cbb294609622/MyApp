@@ -1,4 +1,4 @@
-package cbb.mystyle.com.myapp.homefragment;
+package cbb.mystyle.com.myapp.childfragment;
 
 import android.view.View;
 
@@ -8,10 +8,10 @@ import cbb.mystyle.com.myapp.base.BaseFragment;
 /**
  * Created by BoBo on 2015/11/5.
  */
-public class TabHomeFragment extends BaseFragment {
+public class TabCalendarFragment extends BaseFragment {
     @Override
     public View initView() {
-        view = View.inflate(mContext, R.layout.tab_home_fragment,null);
+        view = View.inflate(mContext, R.layout.tab_calendar_fragment,null);
         return view;
     }
 

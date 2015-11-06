@@ -1,4 +1,4 @@
-package cbb.mystyle.com.myapp.homefragment;
+package cbb.mystyle.com.myapp.childfragment;
 
 import android.view.View;
 
@@ -8,10 +8,10 @@ import cbb.mystyle.com.myapp.base.BaseFragment;
 /**
  * Created by BoBo on 2015/11/5.
  */
-public class TabTravlFragment extends BaseFragment {
+public class TabPictureFragment extends BaseFragment {
     @Override
     public View initView() {
-        view = View.inflate(mContext, R.layout.tab_travel_fragment,null);
+        view = View.inflate(mContext, R.layout.tab_picture_fragment,null);
         return view;
     }
 

@@ -109,31 +109,26 @@ public class SplashActivity extends BaseActivity {
                 "isSettingNumber", false);
         Boolean isSettingGesture = SharedPreferencesUitl.getBooleanData(mContext,
                 "isSettingGesture", false);
-
-        if (isSettingNumber && isSettingGesture){
-            //第一个流程全为True开启状态
-            startActivity(new Intent(mContext, PassWordActivity.class));
-            ActivityAnimUitl.isRightLeft(SplashActivity.this);
-            finish();
-        }else if (!isSettingNumber && !isSettingGesture){
-            //第二个流程全为False关闭状态
-            startActivity(new Intent(mContext, MainActivity.class));
-            ActivityAnimUitl.isRightLeft(SplashActivity.this);
-            finish();
-        }else if (isSettingNumber && !isSettingGesture){
-            //第三个流程，数字锁开启，手势锁关闭，跳过手势锁
-            startActivity(new Intent(mContext, PassWordActivity.class));
-            ActivityAnimUitl.isRightLeft(SplashActivity.this);
-            finish();
-        }else if (!isSettingNumber && isSettingGesture){
-            //第四个流程，数字锁关闭，手势锁开启，跳过数字锁
-            startActivity(new Intent(mContext, GestureActivity.class));
-            ActivityAnimUitl.isRightLeft(SplashActivity.this);
-            finish();
+        Boolean isSettingFlag = SharedPreferencesUitl.getBooleanData(mContext,
+                "isSettingFlag", false);
+        if (!isSettingFlag) {
+            if (isSettingNumber && isSettingGesture) {
+                //第一个流程全为True开启状态
+                startActivity(new Intent(mContext, PassWordActivity.class));
+            } else if (!isSettingNumber && !isSettingGesture) {
+                //第二个流程全为False关闭状态
+                startActivity(new Intent(mContext, MainActivity.class));
+            } else if (isSettingNumber && !isSettingGesture) {
+                //第三个流程，数字锁开启，手势锁关闭，跳过手势锁
+                startActivity(new Intent(mContext, PassWordActivity.class));
+            } else if (!isSettingNumber && isSettingGesture) {
+                //第四个流程，数字锁关闭，手势锁开启，跳过数字锁
+                startActivity(new Intent(mContext, GestureActivity.class));
+            }
         }
-
-
-
+        ActivityAnimUitl.isRightLeft(SplashActivity.this);
+        SharedPreferencesUitl.saveBooleanData(mContext, "isSettingFlag", false);
+        finish();
     }
 
     private void showAD() {

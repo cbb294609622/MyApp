@@ -10,11 +10,11 @@ public class DefaultDataBean {
 	/**
 	 * 左侧数据
 	 */
-	private static List<String> leftItem;
+	public static List<String> leftItem;
 	/**
 	 * 主页数据
 	 */
-	private static List<String> homeItem;
+	public static List<String> homeItem;
 	/**
 	 * popuwindow图片
 	 */
@@ -47,12 +47,12 @@ public class DefaultDataBean {
 	 */
 	public static List<String> leftItemData() {
 		leftItem = new ArrayList<String>();
-		leftItem.add("我的首页");
+		leftItem.add("首页");
 		leftItem.add("个人中心");
 		leftItem.add("图片浏览");
 		leftItem.add("亮点行程");
 		leftItem.add("期待加入");
-		leftItem.add("关于我们");
+		leftItem.add("关于吐槽");
 		leftItem.add("设置中心");
 		return leftItem;
 	}
@@ -73,18 +73,6 @@ public class DefaultDataBean {
 		homeItem.add("杜迁");
 		homeItem.add("蔡庆");
 		homeItem.add("李立");
-		homeItem.add("李忠");
-		homeItem.add("李立");
-		homeItem.add("乐和");
-		homeItem.add("汤隆");
-		homeItem.add("宋江");
-		homeItem.add("卢义");
-		homeItem.add("吴用");
-		homeItem.add("龚旺");
-		homeItem.add("丁孙");
-		homeItem.add("穆春");
-		homeItem.add("曹正");
-		homeItem.add("宋万");
 		return homeItem;
 	}
 
@@ -98,6 +86,6 @@ public class DefaultDataBean {
 			"扫二维码",
 			"电脑共享"
 	};
-
+	public static String[] TITLES = {"热门", "日历", "相册","故事"};
 
 }

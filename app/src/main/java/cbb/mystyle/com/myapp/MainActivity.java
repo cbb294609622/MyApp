@@ -141,33 +141,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 switch (position) {
                     case 0:
                         setTabSelection(0);
-                        tv_title.setText("My APP");
                         break;
                     case 1:
                         setTabSelection(1);
-                        tv_title.setText("个人中心");
                         break;
                     case 2:
                         setTabSelection(2);
-                        tv_title.setText("图片浏览");
                         break;
                     case 3:
                         setTabSelection(3);
-                        tv_title.setText("亮点行程");
                         break;
                     case 4:
                         setTabSelection(4);
-                        tv_title.setText("期待加入");
                         break;
                     case 5:
                         setTabSelection(5);
-                        tv_title.setText("关于我们");
                         break;
                     case 6:
                         setTabSelection(6);
-                        tv_title.setText("设置中心");
                         break;
                 }
+                tv_title.setText(DefaultDataBean.leftItem.get(position));
                 mDragLayout.close(true);
             }
         });
@@ -224,7 +218,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     // 如果homeFragment不为空，则直接显示
                     transaction.show(pictureFragment);
                 }
-
                 break;
             case 3:
                 if (lightRouteFragment == null){

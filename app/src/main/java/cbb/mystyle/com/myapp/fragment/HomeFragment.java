@@ -5,20 +5,17 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-
 import cbb.mystyle.com.myapp.R;
 import cbb.mystyle.com.myapp.base.BaseFragment;
-import cbb.mystyle.com.myapp.homefragment.TabHomeFragment;
-import cbb.mystyle.com.myapp.homefragment.TabPictureFragment;
-import cbb.mystyle.com.myapp.homefragment.TabTravlFragment;
+import cbb.mystyle.com.myapp.data.DefaultDataBean;
+import cbb.mystyle.com.myapp.childfragment.TabHomeFragment;
+import cbb.mystyle.com.myapp.childfragment.TabCalendarFragment;
+import cbb.mystyle.com.myapp.childfragment.TabTaleFragment;
+import cbb.mystyle.com.myapp.childfragment.TabPictureFragment;
 import cbb.mystyle.com.myapp.view.ChildViewPager;
 import cbb.mystyle.com.myapp.view.PagerSlidingTabStrip;
 
@@ -33,21 +30,19 @@ public class HomeFragment extends BaseFragment {
      */
     private ChildViewPager home_vpager;
 
-    private TabTravlFragment tabTravlFragment;
+    private TabPictureFragment tabTravlFragment;
     private TabHomeFragment tabHomeFragment;
-    private TabPictureFragment tabPictureFragment;
+    private TabCalendarFragment tabPictureFragment;
+    private TabTaleFragment tabTaleFragment;
+
     /**
      * 获取当前屏幕的密度
      */
     private DisplayMetrics dm;
 
-    private final String[] titles = {"主页", "图片", "旅游"};
-
-
     @Override
     public View initView() {
         view = View.inflate(mContext, R.layout.home_fragment, null);
-        ViewUtils.inject(mContext, view);
         return view;
     }
 
@@ -69,12 +64,12 @@ public class HomeFragment extends BaseFragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles[position];
+            return DefaultDataBean.TITLES[position];
         }
 
         @Override
         public int getCount() {
-            return titles.length;
+            return DefaultDataBean.TITLES.length;
         }
 
         @Override
@@ -87,14 +82,19 @@ public class HomeFragment extends BaseFragment {
                     return tabHomeFragment;
                 case 1:
                     if (tabPictureFragment == null) {
-                        tabPictureFragment = new TabPictureFragment();
+                        tabPictureFragment = new TabCalendarFragment();
                     }
                     return tabPictureFragment;
                 case 2:
                     if (tabTravlFragment == null) {
-                        tabTravlFragment = new TabTravlFragment();
+                        tabTravlFragment = new TabPictureFragment();
                     }
                     return tabTravlFragment;
+                case 3:
+                    if (tabTaleFragment == null) {
+                        tabTaleFragment = new TabTaleFragment();
+                    }
+                    return tabTaleFragment;
             }
             return null;
         }
