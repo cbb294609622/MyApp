@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:layout_height="match_parent">
+
+    <cbb.mystyle.com.myapp.view.RoundImageView
+        android:id="@+id/tab_img_iv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@mipmap/img_listview_ss"
+        android:scaleType="fitXY"
+        />
+    <TextView
+        android:id="@+id/tab_tv_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:text="浏览:344"
+        android:textColor="#ffffff"
+        android:layout_alignRight="@id/tab_img_iv"
+        android:layout_alignBottom="@id/tab_img_iv"
+        />
+    <TextView
+        android:id="@+id/tab_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="生命不息，运动不止"
+        android:textColor="#ffffff"
+        android:layout_alignLeft="@id/tab_img_iv"
+        android:textSize="18sp"
+        android:layout_margin="10dp"
+        />
+</RelativeLayout>
