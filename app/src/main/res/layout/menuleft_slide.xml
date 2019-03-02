@@ -31,7 +31,7 @@
         android:layout_marginLeft="15dp"
         android:layout_toRightOf="@+id/imageview1"
         android:gravity="center_vertical"
-        android:text="回首"
+        android:text="蓝鲸"
         android:textColor="#fff"
         android:textSize="20sp" />
 

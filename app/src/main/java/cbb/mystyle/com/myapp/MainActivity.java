@@ -146,7 +146,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         setTabSelection(1);
                         break;
                     case 2:
-                        setTabSelection(2);
+                        setTabSelection(1);
                         break;
                     case 3:
                         setTabSelection(3);
@@ -169,7 +169,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         //home页数据展示
         iv_header.setOnClickListener(this);
         iv_function.setOnClickListener(this);
-
+        //首页图标的动效
         leftLinster();
         setTabSelection(0);
     }
@@ -316,8 +316,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             public void onDraging(float percent) {
                 // 更新图标的透明度
                 // 1.0 -> 0.0
-                ViewHelper.setAlpha(iv_header, 1 - percent);
-                ViewHelper.setAlpha(tv_title, 1 - percent);
+                ViewHelper.setAlpha(iv_header, 1);
+                ViewHelper.setAlpha(tv_title, 1);
             }
 
             @Override

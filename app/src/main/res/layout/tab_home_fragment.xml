@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <cbb.mystyle.com.myapp.view.WaterDropListView
+    <!--<cbb.mystyle.com.myapp.view.WaterDropListView
         android:id="@+id/waterdrop_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,5 +11,5 @@
         android:listSelector="@drawable/home_listview_select"
         android:scrollbars="none"
         >
-    </cbb.mystyle.com.myapp.view.WaterDropListView>
+    </cbb.mystyle.com.myapp.view.WaterDropListView>-->
 </RelativeLayout>

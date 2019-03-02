@@ -237,8 +237,8 @@ public class DragLayout extends FrameLayout {
 
 		//		> 2. 主面板: 缩放动画
 		// 1.0f -> 0.8f
-		ViewHelper.setScaleX(mMainContent, evaluate(percent, 1.0f, 0.8f));
-		ViewHelper.setScaleY(mMainContent, evaluate(percent, 1.0f, 0.8f));
+//		ViewHelper.setScaleX(mMainContent, evaluate(percent, 1.0f, 0.8f));
+//		ViewHelper.setScaleY(mMainContent, evaluate(percent, 1.0f, 0.8f));
 
 		//		> 3. 背景动画: 亮度变化 (颜色变化)
 		getBackground().setColorFilter((Integer)evaluateColor(percent, Color.BLACK, Color.TRANSPARENT), Mode.SRC_OVER);
@@ -380,7 +380,7 @@ public class DragLayout extends FrameLayout {
 		mWidth = getMeasuredWidth();
 
 		// 移动的范围
-		mRange = (int) (mWidth * 0.6f);
+		mRange = (int) (mWidth * 0.5f);
 
 	}
 
